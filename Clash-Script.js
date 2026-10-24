@@ -623,7 +623,11 @@ function main(input) {
         config.dns["nameserver-policy"] = {};
     }
 
-    config.dns["nameserver-policy"]["smtp.gmail.com"] = "system";
+    config.dns["nameserver-policy"]["smtp.gmail.com"] = [
+      "223.5.5.5",
+      "223.6.6.6"
+    ];
+    config.dns["direct-nameserver-follow-policy"] = true;
     const pattern = INFO_PATTERN + "|" + TRAFFIC_PATTERN + "|" + PREMIUM_PATTERN + (EXCLUDE_COUNTRIES ? "|" + COUNTRY_PATTERN : "");
     const excludeReg = new RegExp(pattern, "i");
     const goExclude = "(?i)(?:" + pattern + ")";
