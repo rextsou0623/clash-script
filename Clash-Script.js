@@ -22,7 +22,7 @@ const EXCLUDE_COUNTRIES = true;
 const PREMIUM_PATTERN = "\\[premium\\]\\s*$";
 // 排除纯流量统计名称，如 36.03 G | 500.00 G；流量数字变化仍有效。
 const TRAFFIC_PATTERN = "^\\s*(?:\\[[^\\]\\r\\n]+\\]\\s*)?[0-9]+(?:\\.[0-9]+)?\\s*[KMGT](?:I?B)?\\s*[|｜]\\s*[0-9]+(?:\\.[0-9]+)?\\s*[KMGT](?:I?B)?\\s*$";
-const INFO_PATTERN = "官网|官方|公告|订阅|链接|网站|客服|剩余|到期|流量|重置|套餐时间|(^|[^a-z])(telegram|group|channel|notice|expire|expired|traffic|reset)([^a-z]|$)";
+const INFO_PATTERN = "官网|官方|公告|订阅|链接|网站|客服|剩余|到期|流量|重置|套餐时间|(^|[^a-z])(telegram|group|channel|notice|expire|expired|traffic|reset|Game)([^a-z]|$)";
 const COUNTRY_PATTERN = "阿联酋|阿根廷|保加利亚|巴西|瑞士|智利|印度尼西亚|印度|爱尔兰|匈牙利|俄罗斯|瑞典|土耳其|荷兰|英国|法国|德国|(^|[^a-z])(arab|uae|argentina|austria|bulgaria|brazil|switzerland|chile|india|indonesia|ireland|hungary|russia|sweden|turkey|netherlands?|united[ _-]*kingdom|uk|france|germany)([^a-z]|$)";
 
 const customRules = [
