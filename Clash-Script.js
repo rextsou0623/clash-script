@@ -673,7 +673,7 @@ function main(input) {
             group["exclude-filter"] = goExclude;
             group["empty-fallback"] = "REJECT";
         }
-        if (group.name === "节点选择") group.proxies.splice(2, 0, "地区选择");
+        if (group.name === "节点选择") group.proxies.splice(0, 0, "地区选择");
         else if (group.type === "select" && group.proxies && !group["include-all"] && !["全局直连", "Bilibili"].includes(group.name)) {
             group.proxies = [...new Set([...group.proxies, ...regionNames])];
         }
