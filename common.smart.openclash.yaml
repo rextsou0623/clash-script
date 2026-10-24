@@ -1,0 +1,896 @@
+# PRIVATE: contains subscription URLs and/or node credentials. Never publish.
+# Hitun/Renzhe: update every 3 days. Nexitally: HTTP manual refresh only, interval 0.
+# Missing/invalid HTTP cache can still trigger initialization downloads.
+dns:
+  enable: true
+  listen: 127.0.0.1:7874
+  ipv6: false
+  use-hosts: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter-mode: blacklist
+  respect-rules: true
+  prefer-h3: false
+  default-nameserver:
+  - 223.5.5.5
+  - 119.29.29.29
+  proxy-server-nameserver:
+  - https://dns.alidns.com/dns-query
+  - https://doh.pub/dns-query
+  direct-nameserver:
+  - https://dns.alidns.com/dns-query
+  - https://doh.pub/dns-query
+  direct-nameserver-follow-policy: true
+  nameserver:
+  - https://1.1.1.1/dns-query#节点选择
+  - https://8.8.8.8/dns-query#节点选择
+  nameserver-policy:
+    smtp.gmail.com:
+    - 223.5.5.5
+    - 223.6.6.6
+    rule-set:direct,private:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  fake-ip-filter:
+  - +.lan
+  - +.local
+  - +.localdomain
+  - +.home.arpa
+  - +.arpa
+  - localhost
+  - time.*.com
+  - time.*.gov
+  - +.pool.ntp.org
+  - +.ntp.org
+  - +.msftconnecttest.com
+  - +.msftncsi.com
+  - stun.*.*
+  - stun.*.*.*
+  - +.stun.playstation.net
+  - +.srv.nintendo.net
+  - localhost.ptlogin2.qq.com
+  - localhost.sec.qq.com
+  proxy-server-nameserver-policy:
+    2e864e57-6ba8-4073-822c-9b4de704d43d.dmdzuspah1.sbs:
+    - https://iqsjp.com:44443/dns-query/93620255-e844-4ba8-a8c3-7fb849582e6c#DIRECT
+    - https://destitute2725.com:44443/dns-query/93620255-e844-4ba8-a8c3-7fb849582e6c#DIRECT
+    - https://prolonged3729.com:443/dns-query/93620255-e844-4ba8-a8c3-7fb849582e6c#DIRECT
+    811f4d1d-e418-4c2c-a007-c01f194e4b19.dmdzuspah1.sbs:
+    - https://iqsjp.com:44443/dns-query/93620255-e844-4ba8-a8c3-7fb849582e6c#DIRECT
+    - https://destitute2725.com:44443/dns-query/93620255-e844-4ba8-a8c3-7fb849582e6c#DIRECT
+    - https://prolonged3729.com:443/dns-query/93620255-e844-4ba8-a8c3-7fb849582e6c#DIRECT
+profile:
+  store-selected: true
+  store-fake-ip: true
+unified-delay: true
+tcp-concurrent: true
+sniffer:
+  enable: true
+  force-dns-mapping: false
+  parse-pure-ip: true
+  override-destination: false
+  sniff:
+    TLS:
+      ports:
+      - 443
+      - 8443
+    HTTP:
+      ports:
+      - 80
+      - 8080-8880
+      override-destination: false
+    QUIC:
+      ports:
+      - 443
+      - 8443
+  skip-domain:
+  - Mijia Cloud
+  - dlg.io.mi.com
+  - +.oray.com
+  - +.sunlogin.net
+  - +.push.apple.com
+proxy-groups:
+- hidden: false
+  disable-udp: false
+  name: 节点选择
+  type: select
+  proxies:
+  - 地区选择
+  - 手动选择
+  - 延迟选优
+  icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Airport.png
+- name: 地区选择
+  type: select
+  proxies:
+  - 🇺🇸 美国 📶
+  - 🇯🇵 日本 📶
+  - 🇰🇷 韩国 📶
+  - 🇸🇬 新加坡 📶
+  - 🇭🇰 香港 📶
+  - 🇹🇼 台湾 📶
+  - 🇨🇳 中国 📶
+  - 🌐 其他 📶
+- hidden: false
+  disable-udp: false
+  name: 手动选择
+  type: select
+  icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/adjust.svg
+  exclude-filter: (?i)(?:Game|官网|官方|公告|订阅|链接|网站|客服|剩余|到期|流量|重置|套餐时间|(^|[^a-z])(telegram|group|channel|notice|expire|expired|traffic|reset)([^a-z]|$)|^\s*(?:\[[^\]\r\n]+\]\s*)?[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*[|｜]\s*[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*$|\[premium\]\s*$|阿联酋|阿根廷|保加利亚|巴西|瑞士|智利|印度尼西亚|印度|爱尔兰|匈牙利|俄罗斯|瑞典|土耳其|荷兰|英国|法国|德国|(^|[^a-z])(arab|uae|argentina|austria|bulgaria|brazil|switzerland|chile|india|indonesia|ireland|hungary|russia|sweden|turkey|netherlands?|united[
+    _-]*kingdom|uk|france|germany)([^a-z]|$))
+  empty-fallback: REJECT
+  use:
+  - Hitun
+  - Renzhe
+  - Nexitally
+- hidden: false
+  disable-udp: false
+  name: 漏网之鱼
+  type: select
+  proxies:
+  - 节点选择
+  - 全局直连
+  - 手动选择
+  - 延迟选优
+  - 🇺🇸 美国 📶
+  - 🇯🇵 日本 📶
+  - 🇰🇷 韩国 📶
+  - 🇸🇬 新加坡 📶
+  - 🇭🇰 香港 📶
+  - 🇹🇼 台湾 📶
+  - 🇨🇳 中国 📶
+  - 🌐 其他 📶
+  icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/fish.svg
+- hidden: false
+  disable-udp: false
+  name: Bing
+  type: select
+  proxies:
+  - 节点选择
+  - 全局直连
+  - 手动选择
+  - 延迟选优
+  - 🇺🇸 美国 📶
+  - 🇯🇵 日本 📶
+  - 🇰🇷 韩国 📶
+  - 🇸🇬 新加坡 📶
+  - 🇭🇰 香港 📶
+  - 🇹🇼 台湾 📶
+  - 🇨🇳 中国 📶
+  - 🌐 其他 📶
+  icon: https://www.bing.com/favicon.ico
+- hidden: false
+  disable-udp: false
+  name: Github
+  type: select
+  proxies:
+  - 节点选择
+  - 手动选择
+  - 全局直连
+  - 延迟选优
+  - 🇺🇸 美国 📶
+  - 🇯🇵 日本 📶
+  - 🇰🇷 韩国 📶
+  - 🇸🇬 新加坡 📶
+  - 🇭🇰 香港 📶
+  - 🇹🇼 台湾 📶
+  - 🇨🇳 中国 📶
+  - 🌐 其他 📶
+  icon: https://www.clashverge.dev/assets/icons/github.svg
+- hidden: false
+  disable-udp: false
+  name: 谷歌服务
+  type: select
+  proxies:
+  - 节点选择
+  - 手动选择
+  - 全局直连
+  - 延迟选优
+  - 🇺🇸 美国 📶
+  - 🇯🇵 日本 📶
+  - 🇰🇷 韩国 📶
+  - 🇸🇬 新加坡 📶
+  - 🇭🇰 香港 📶
+  - 🇹🇼 台湾 📶
+  - 🇨🇳 中国 📶
+  - 🌐 其他 📶
+  icon: https://www.clashverge.dev/assets/icons/google.svg
+- hidden: false
+  disable-udp: false
+  name: Shopify
+  type: select
+  proxies:
+  - 节点选择
+  - 手动选择
+  - 全局直连
+  - 延迟选优
+  - 🇺🇸 美国 📶
+  - 🇯🇵 日本 📶
+  - 🇰🇷 韩国 📶
+  - 🇸🇬 新加坡 📶
+  - 🇭🇰 香港 📶
+  - 🇹🇼 台湾 📶
+  - 🇨🇳 中国 📶
+  - 🌐 其他 📶
+  icon: https://www.shopify.com/favicon.ico
+- hidden: false
+  disable-udp: false
+  name: 苹果服务
+  type: select
+  proxies:
+  - 全局直连
+  - 节点选择
+  - 手动选择
+  - 延迟选优
+  - 🇺🇸 美国 📶
+  - 🇯🇵 日本 📶
+  - 🇰🇷 韩国 📶
+  - 🇸🇬 新加坡 📶
+  - 🇭🇰 香港 📶
+  - 🇹🇼 台湾 📶
+  - 🇨🇳 中国 📶
+  - 🌐 其他 📶
+  icon: https://www.clashverge.dev/assets/icons/apple.svg
+- hidden: false
+  disable-udp: false
+  name: 微软服务
+  type: select
+  proxies:
+  - 全局直连
+  - 节点选择
+  - 手动选择
+  - 延迟选优
+  - 🇺🇸 美国 📶
+  - 🇯🇵 日本 📶
+  - 🇰🇷 韩国 📶
+  - 🇸🇬 新加坡 📶
+  - 🇭🇰 香港 📶
+  - 🇹🇼 台湾 📶
+  - 🇨🇳 中国 📶
+  - 🌐 其他 📶
+  icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/microsoft.svg
+- hidden: false
+  disable-udp: false
+  name: Onedrive
+  type: select
+  proxies:
+  - 节点选择
+  - 全局直连
+  - 手动选择
+  - 延迟选优
+  - 🇺🇸 美国 📶
+  - 🇯🇵 日本 📶
+  - 🇰🇷 韩国 📶
+  - 🇸🇬 新加坡 📶
+  - 🇭🇰 香港 📶
+  - 🇹🇼 台湾 📶
+  - 🇨🇳 中国 📶
+  - 🌐 其他 📶
+  icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/OneDrive.png
+- hidden: false
+  disable-udp: false
+  name: AI
+  type: select
+  proxies:
+  - 🇺🇸 美国 📶
+  - 手动选择
+  - 节点选择
+  - 🇯🇵 日本 📶
+  - 🇰🇷 韩国 📶
+  - 🇸🇬 新加坡 📶
+  - 🇭🇰 香港 📶
+  - 🇹🇼 台湾 📶
+  - 🇨🇳 中国 📶
+  - 🌐 其他 📶
+  icon: https://www.clashverge.dev/assets/icons/chatgpt.svg
+- hidden: false
+  disable-udp: false
+  name: Bilibili
+  type: select
+  proxies:
+  - 全局直连
+  icon: https://fastly.jsdelivr.net/gh/Orz-3/mini@master/Color/Bili.png
+- hidden: false
+  disable-udp: false
+  name: YouTube
+  type: select
+  proxies:
+  - 节点选择
+  - 手动选择
+  - 延迟选优
+  - 🇺🇸 美国 📶
+  - 🇯🇵 日本 📶
+  - 🇰🇷 韩国 📶
+  - 🇸🇬 新加坡 📶
+  - 🇭🇰 香港 📶
+  - 🇹🇼 台湾 📶
+  - 🇨🇳 中国 📶
+  - 🌐 其他 📶
+  icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/youtube.svg
+- hidden: false
+  disable-udp: false
+  name: Netflix
+  type: select
+  proxies:
+  - 节点选择
+  - 手动选择
+  - 延迟选优
+  - 🇺🇸 美国 📶
+  - 🇯🇵 日本 📶
+  - 🇰🇷 韩国 📶
+  - 🇸🇬 新加坡 📶
+  - 🇭🇰 香港 📶
+  - 🇹🇼 台湾 📶
+  - 🇨🇳 中国 📶
+  - 🌐 其他 📶
+  icon: https://www.clashverge.dev/assets/icons/netflix.svg
+- hidden: false
+  disable-udp: false
+  name: TikTok
+  type: select
+  proxies:
+  - 🇺🇸 美国 📶
+  - 🇸🇬 新加坡 📶
+  - 🇹🇼 台湾 📶
+  - 节点选择
+  - 手动选择
+  - 🇯🇵 日本 📶
+  - 🇰🇷 韩国 📶
+  - 🇭🇰 香港 📶
+  - 🇨🇳 中国 📶
+  - 🌐 其他 📶
+  icon: https://fastly.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/tiktok.png
+- hidden: false
+  disable-udp: false
+  name: Spotify
+  type: select
+  proxies:
+  - 节点选择
+  - 全局直连
+  - 手动选择
+  - 延迟选优
+  - 🇺🇸 美国 📶
+  - 🇯🇵 日本 📶
+  - 🇰🇷 韩国 📶
+  - 🇸🇬 新加坡 📶
+  - 🇭🇰 香港 📶
+  - 🇹🇼 台湾 📶
+  - 🇨🇳 中国 📶
+  - 🌐 其他 📶
+  icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Spotify.png
+- hidden: false
+  disable-udp: false
+  name: Adobe
+  type: select
+  proxies:
+  - 全局直连
+  - 节点选择
+  - REJECT
+  - 🇺🇸 美国 📶
+  - 🇯🇵 日本 📶
+  - 🇰🇷 韩国 📶
+  - 🇸🇬 新加坡 📶
+  - 🇭🇰 香港 📶
+  - 🇹🇼 台湾 📶
+  - 🇨🇳 中国 📶
+  - 🌐 其他 📶
+  icon: https://www.adobe.com/favicon.ico
+- hidden: false
+  disable-udp: false
+  name: 游戏服务
+  type: select
+  proxies:
+  - 全局直连
+  - 节点选择
+  - 手动选择
+  - 延迟选优
+  - 🇺🇸 美国 📶
+  - 🇯🇵 日本 📶
+  - 🇰🇷 韩国 📶
+  - 🇸🇬 新加坡 📶
+  - 🇭🇰 香港 📶
+  - 🇹🇼 台湾 📶
+  - 🇨🇳 中国 📶
+  - 🌐 其他 📶
+  icon: https://www.clashverge.dev/assets/icons/steam.svg
+- hidden: false
+  disable-udp: false
+  name: 电报消息
+  type: select
+  proxies:
+  - 节点选择
+  - 手动选择
+  - 延迟选优
+  - 🇺🇸 美国 📶
+  - 🇯🇵 日本 📶
+  - 🇰🇷 韩国 📶
+  - 🇸🇬 新加坡 📶
+  - 🇭🇰 香港 📶
+  - 🇹🇼 台湾 📶
+  - 🇨🇳 中国 📶
+  - 🌐 其他 📶
+  icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/telegram.svg
+- hidden: false
+  disable-udp: false
+  name: 网速测试
+  type: select
+  proxies:
+  - 全局直连
+  icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Speedtest.png
+  exclude-filter: (?i)(?:Game|官网|官方|公告|订阅|链接|网站|客服|剩余|到期|流量|重置|套餐时间|(^|[^a-z])(telegram|group|channel|notice|expire|expired|traffic|reset)([^a-z]|$)|^\s*(?:\[[^\]\r\n]+\]\s*)?[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*[|｜]\s*[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*$|\[premium\]\s*$|阿联酋|阿根廷|保加利亚|巴西|瑞士|智利|印度尼西亚|印度|爱尔兰|匈牙利|俄罗斯|瑞典|土耳其|荷兰|英国|法国|德国|(^|[^a-z])(arab|uae|argentina|austria|bulgaria|brazil|switzerland|chile|india|indonesia|ireland|hungary|russia|sweden|turkey|netherlands?|united[
+    _-]*kingdom|uk|france|germany)([^a-z]|$))
+  empty-fallback: REJECT
+  use:
+  - Hitun
+  - Renzhe
+  - Nexitally
+- hidden: false
+  disable-udp: false
+  name: 全局直连
+  type: select
+  proxies:
+  - DIRECT
+  icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/link.svg
+- hidden: false
+  disable-udp: false
+  name: 延迟选优
+  type: url-test
+  icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/speed.svg
+  url: https://www.gstatic.com/generate_204
+  interval: 360
+  timeout: 5000
+  lazy: true
+  tolerance: 150
+  exclude-filter: (?i)(?:Game|官网|官方|公告|订阅|链接|网站|客服|剩余|到期|流量|重置|套餐时间|(^|[^a-z])(telegram|group|channel|notice|expire|expired|traffic|reset)([^a-z]|$)|^\s*(?:\[[^\]\r\n]+\]\s*)?[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*[|｜]\s*[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*$|\[premium\]\s*$|阿联酋|阿根廷|保加利亚|巴西|瑞士|智利|印度尼西亚|印度|爱尔兰|匈牙利|俄罗斯|瑞典|土耳其|荷兰|英国|法国|德国|(^|[^a-z])(arab|uae|argentina|austria|bulgaria|brazil|switzerland|chile|india|indonesia|ireland|hungary|russia|sweden|turkey|netherlands?|united[
+    _-]*kingdom|uk|france|germany)([^a-z]|$))
+  empty-fallback: REJECT
+  use:
+  - Hitun
+  - Renzhe
+  - Nexitally
+- name: 🇺🇸 美国 📶
+  type: select
+  empty-fallback: REJECT
+  exclude-filter: (?i)(?:Game|官网|官方|公告|订阅|链接|网站|客服|剩余|到期|流量|重置|套餐时间|(^|[^a-z])(telegram|group|channel|notice|expire|expired|traffic|reset)([^a-z]|$)|^\s*(?:\[[^\]\r\n]+\]\s*)?[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*[|｜]\s*[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*$|\[premium\]\s*$|阿联酋|阿根廷|保加利亚|巴西|瑞士|智利|印度尼西亚|印度|爱尔兰|匈牙利|俄罗斯|瑞典|土耳其|荷兰|英国|法国|德国|(^|[^a-z])(arab|uae|argentina|austria|bulgaria|brazil|switzerland|chile|india|indonesia|ireland|hungary|russia|sweden|turkey|netherlands?|united[
+    _-]*kingdom|uk|france|germany)([^a-z]|$))
+  icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/us.svg
+  filter: (?i)(?:美国|🇺🇸|(^|[^a-z])(us|usa)([^a-z]|$)|united[ _-]*states|america)
+  use:
+  - Hitun
+  - Renzhe
+  - Nexitally
+- name: 🇯🇵 日本 📶
+  type: smart
+  empty-fallback: REJECT
+  exclude-filter: (?i)(?:Game|官网|官方|公告|订阅|链接|网站|客服|剩余|到期|流量|重置|套餐时间|(^|[^a-z])(telegram|group|channel|notice|expire|expired|traffic|reset)([^a-z]|$)|^\s*(?:\[[^\]\r\n]+\]\s*)?[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*[|｜]\s*[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*$|\[premium\]\s*$|阿联酋|阿根廷|保加利亚|巴西|瑞士|智利|印度尼西亚|印度|爱尔兰|匈牙利|俄罗斯|瑞典|土耳其|荷兰|英国|法国|德国|(^|[^a-z])(arab|uae|argentina|austria|bulgaria|brazil|switzerland|chile|india|indonesia|ireland|hungary|russia|sweden|turkey|netherlands?|united[
+    _-]*kingdom|uk|france|germany)([^a-z]|$))
+  icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/jp.svg
+  filter: (?i)(?:日本|🇯🇵|(^|[^a-z])jp([^a-z]|$)|japan)
+  url: https://www.gstatic.com/generate_204
+  interval: 360
+  timeout: 5000
+  lazy: true
+  tolerance: 150
+  use:
+  - Hitun
+  - Renzhe
+  - Nexitally
+- name: 🇰🇷 韩国 📶
+  type: smart
+  empty-fallback: REJECT
+  exclude-filter: (?i)(?:Game|官网|官方|公告|订阅|链接|网站|客服|剩余|到期|流量|重置|套餐时间|(^|[^a-z])(telegram|group|channel|notice|expire|expired|traffic|reset)([^a-z]|$)|^\s*(?:\[[^\]\r\n]+\]\s*)?[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*[|｜]\s*[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*$|\[premium\]\s*$|阿联酋|阿根廷|保加利亚|巴西|瑞士|智利|印度尼西亚|印度|爱尔兰|匈牙利|俄罗斯|瑞典|土耳其|荷兰|英国|法国|德国|(^|[^a-z])(arab|uae|argentina|austria|bulgaria|brazil|switzerland|chile|india|indonesia|ireland|hungary|russia|sweden|turkey|netherlands?|united[
+    _-]*kingdom|uk|france|germany)([^a-z]|$))
+  icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/kr.svg
+  filter: (?i)(?:韩国|韓國|🇰🇷|(^|[^a-z])kr([^a-z]|$)|korea)
+  url: https://www.gstatic.com/generate_204
+  interval: 360
+  timeout: 5000
+  lazy: true
+  tolerance: 150
+  use:
+  - Hitun
+  - Renzhe
+  - Nexitally
+- name: 🇸🇬 新加坡 📶
+  type: smart
+  empty-fallback: REJECT
+  exclude-filter: (?i)(?:Game|官网|官方|公告|订阅|链接|网站|客服|剩余|到期|流量|重置|套餐时间|(^|[^a-z])(telegram|group|channel|notice|expire|expired|traffic|reset)([^a-z]|$)|^\s*(?:\[[^\]\r\n]+\]\s*)?[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*[|｜]\s*[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*$|\[premium\]\s*$|阿联酋|阿根廷|保加利亚|巴西|瑞士|智利|印度尼西亚|印度|爱尔兰|匈牙利|俄罗斯|瑞典|土耳其|荷兰|英国|法国|德国|(^|[^a-z])(arab|uae|argentina|austria|bulgaria|brazil|switzerland|chile|india|indonesia|ireland|hungary|russia|sweden|turkey|netherlands?|united[
+    _-]*kingdom|uk|france|germany)([^a-z]|$))
+  icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/sg.svg
+  filter: (?i)(?:新加坡|🇸🇬|狮城|獅城|(^|[^a-z])sg([^a-z]|$)|singapore)
+  url: https://www.gstatic.com/generate_204
+  interval: 360
+  timeout: 5000
+  lazy: true
+  tolerance: 150
+  use:
+  - Hitun
+  - Renzhe
+  - Nexitally
+- name: 🇭🇰 香港 📶
+  type: smart
+  empty-fallback: REJECT
+  exclude-filter: (?i)(?:Game|官网|官方|公告|订阅|链接|网站|客服|剩余|到期|流量|重置|套餐时间|(^|[^a-z])(telegram|group|channel|notice|expire|expired|traffic|reset)([^a-z]|$)|^\s*(?:\[[^\]\r\n]+\]\s*)?[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*[|｜]\s*[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*$|\[premium\]\s*$|阿联酋|阿根廷|保加利亚|巴西|瑞士|智利|印度尼西亚|印度|爱尔兰|匈牙利|俄罗斯|瑞典|土耳其|荷兰|英国|法国|德国|(^|[^a-z])(arab|uae|argentina|austria|bulgaria|brazil|switzerland|chile|india|indonesia|ireland|hungary|russia|sweden|turkey|netherlands?|united[
+    _-]*kingdom|uk|france|germany)([^a-z]|$))
+  icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/hk.svg
+  filter: (?i)(?:香港|🇭🇰|(^|[^a-z])hk([^a-z]|$)|hong[ _-]*kong)
+  url: https://www.gstatic.com/generate_204
+  interval: 360
+  timeout: 5000
+  lazy: true
+  tolerance: 150
+  use:
+  - Hitun
+  - Renzhe
+  - Nexitally
+- name: 🇹🇼 台湾 📶
+  type: smart
+  empty-fallback: REJECT
+  exclude-filter: (?i)(?:Game|官网|官方|公告|订阅|链接|网站|客服|剩余|到期|流量|重置|套餐时间|(^|[^a-z])(telegram|group|channel|notice|expire|expired|traffic|reset)([^a-z]|$)|^\s*(?:\[[^\]\r\n]+\]\s*)?[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*[|｜]\s*[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*$|\[premium\]\s*$|阿联酋|阿根廷|保加利亚|巴西|瑞士|智利|印度尼西亚|印度|爱尔兰|匈牙利|俄罗斯|瑞典|土耳其|荷兰|英国|法国|德国|(^|[^a-z])(arab|uae|argentina|austria|bulgaria|brazil|switzerland|chile|india|indonesia|ireland|hungary|russia|sweden|turkey|netherlands?|united[
+    _-]*kingdom|uk|france|germany)([^a-z]|$))
+  icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/tw.svg
+  filter: (?i)(?:台湾|台灣|🇹🇼|(^|[^a-z])tw([^a-z]|$)|tai[ _-]*wan)
+  url: https://www.gstatic.com/generate_204
+  interval: 360
+  timeout: 5000
+  lazy: true
+  tolerance: 150
+  use:
+  - Hitun
+  - Renzhe
+  - Nexitally
+- name: 🇨🇳 中国 📶
+  type: smart
+  empty-fallback: REJECT
+  exclude-filter: (?i)(?:Game|官网|官方|公告|订阅|链接|网站|客服|剩余|到期|流量|重置|套餐时间|(^|[^a-z])(telegram|group|channel|notice|expire|expired|traffic|reset)([^a-z]|$)|^\s*(?:\[[^\]\r\n]+\]\s*)?[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*[|｜]\s*[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*$|\[premium\]\s*$|阿联酋|阿根廷|保加利亚|巴西|瑞士|智利|印度尼西亚|印度|爱尔兰|匈牙利|俄罗斯|瑞典|土耳其|荷兰|英国|法国|德国|(^|[^a-z])(arab|uae|argentina|austria|bulgaria|brazil|switzerland|chile|india|indonesia|ireland|hungary|russia|sweden|turkey|netherlands?|united[
+    _-]*kingdom|uk|france|germany)([^a-z]|$))
+  icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/cn.svg
+  filter: (?i)(?:中国|中國|大陆|大陸|🇨🇳|(^|[^a-z])cn([^a-z]|$)|china)
+  url: https://www.gstatic.com/generate_204
+  interval: 360
+  timeout: 5000
+  lazy: true
+  tolerance: 150
+  use:
+  - Hitun
+  - Renzhe
+  - Nexitally
+- name: 🌐 其他 📶
+  type: smart
+  empty-fallback: REJECT
+  exclude-filter: (?i)(?:Game|官网|官方|公告|订阅|链接|网站|客服|剩余|到期|流量|重置|套餐时间|(^|[^a-z])(telegram|group|channel|notice|expire|expired|traffic|reset)([^a-z]|$)|^\s*(?:\[[^\]\r\n]+\]\s*)?[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*[|｜]\s*[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*$|\[premium\]\s*$|阿联酋|阿根廷|保加利亚|巴西|瑞士|智利|印度尼西亚|印度|爱尔兰|匈牙利|俄罗斯|瑞典|土耳其|荷兰|英国|法国|德国|(^|[^a-z])(arab|uae|argentina|austria|bulgaria|brazil|switzerland|chile|india|indonesia|ireland|hungary|russia|sweden|turkey|netherlands?|united[
+    _-]*kingdom|uk|france|germany)([^a-z]|$))`(?i)(?:(?:美国|🇺🇸|(^|[^a-z])(us|usa)([^a-z]|$)|united[ _-]*states|america)|(?:日本|🇯🇵|(^|[^a-z])jp([^a-z]|$)|japan)|(?:韩国|韓國|🇰🇷|(^|[^a-z])kr([^a-z]|$)|korea)|(?:新加坡|🇸🇬|狮城|獅城|(^|[^a-z])sg([^a-z]|$)|singapore)|(?:香港|🇭🇰|(^|[^a-z])hk([^a-z]|$)|hong[
+    _-]*kong)|(?:台湾|台灣|🇹🇼|(^|[^a-z])tw([^a-z]|$)|tai[ _-]*wan)|(?:中国|中國|大陆|大陸|🇨🇳|(^|[^a-z])cn([^a-z]|$)|china))
+  icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Global.png
+  url: https://www.gstatic.com/generate_204
+  interval: 360
+  timeout: 5000
+  lazy: true
+  tolerance: 150
+  use:
+  - Hitun
+  - Renzhe
+  - Nexitally
+rule-providers:
+  ipdirect:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: ipcidr
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/cn.mrs
+    path: ./ruleset/cncidr.mrs
+    proxy: DIRECT
+  ipprivate:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: ipcidr
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/private.mrs
+    path: ./ruleset/lancidr.mrs
+    proxy: DIRECT
+  direct:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: domain
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/cn.mrs
+    path: ./ruleset/direct.mrs
+    proxy: DIRECT
+  private:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: domain
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/private.mrs
+    path: ./ruleset/private.mrs
+    proxy: DIRECT
+  google:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: domain
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs
+    path: ./ruleset/google.mrs
+    proxy: DIRECT
+  shopify:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: domain
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/shopify.mrs
+    path: ./ruleset/shopify.mrs
+    proxy: DIRECT
+  microsoft:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: domain
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft.mrs
+    path: ./ruleset/microsoft.mrs
+    proxy: DIRECT
+  apple:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: domain
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.mrs
+    path: ./ruleset/apple.mrs
+    proxy: DIRECT
+  bing:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: domain
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/bing.mrs
+    path: ./ruleset/bing.mrs
+    proxy: DIRECT
+  github:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: domain
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs
+    path: ./ruleset/github.mrs
+    proxy: DIRECT
+  onedrive:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: domain
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/onedrive.mrs
+    path: ./ruleset/onedrive.mrs
+    proxy: DIRECT
+  youtube:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: domain
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs
+    path: ./ruleset/youtube.mrs
+    proxy: DIRECT
+  netflix_ip:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: ipcidr
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.mrs
+    path: ./ruleset/netflix-ip.mrs
+    proxy: DIRECT
+  netflix_site:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: domain
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs
+    path: ./ruleset/netflix-site.mrs
+    proxy: DIRECT
+  adobe:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: domain
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/adobe.mrs
+    path: ./ruleset/adobe.mrs
+    proxy: DIRECT
+  ai:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: domain
+    url: https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/ai.mrs
+    path: ./ruleset/ai.mrs
+    proxy: DIRECT
+  bilibili:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: domain
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/bilibili.mrs
+    path: ./ruleset/bilibili.mrs
+    proxy: DIRECT
+  tiktok:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: domain
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs
+    path: ./ruleset/tiktok.mrs
+    proxy: DIRECT
+  spotify:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: domain
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/spotify.mrs
+    path: ./ruleset/spotify.mrs
+    proxy: DIRECT
+  speedtest:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: domain
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/speedtest.mrs
+    path: ./ruleset/speedtest.mrs
+    proxy: DIRECT
+  games:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: domain
+    url: https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/games-cn.mrs
+    path: ./ruleset/games.mrs
+    proxy: DIRECT
+  telegramcidr:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: ipcidr
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs
+    path: ./ruleset/telegramcidr.mrs
+    proxy: DIRECT
+  proxy:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: domain
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo-lite/geosite/proxy.mrs
+    path: ./rulesets/loyalsoldier/proxy.mrs
+    proxy: DIRECT
+  gfw:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: domain
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.mrs
+    path: ./ruleset/gfw.mrs
+    proxy: DIRECT
+  tld-not-cn:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: domain
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tld-!cn.mrs
+    path: ./ruleset/tld-not-cn.mrs
+    proxy: DIRECT
+  telegram:
+    type: http
+    format: mrs
+    interval: 86400
+    behavior: domain
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs
+    path: ./ruleset/telegram.mrs
+    proxy: DIRECT
+rules:
+- RULE-SET,private,全局直连
+- RULE-SET,ipprivate,全局直连,no-resolve
+- AND,((NETWORK,UDP),(DST-PORT,443)),REJECT
+- DOMAIN,smtp.gmail.com,DIRECT
+- DOMAIN,hw.icoremail.net,节点选择
+- DOMAIN-SUFFIX,cykjprint.com,DIRECT
+- DOMAIN-SUFFIX,cnqyexp.com,DIRECT
+- DOMAIN-SUFFIX,bisekcycle.com,🇺🇸 美国 📶
+- DOMAIN-SUFFIX,linkseride.com,🇺🇸 美国 📶
+- DOMAIN-SUFFIX,cyclesages.com,🇺🇸 美国 📶
+- DOMAIN-KEYWORD,zouyang,DIRECT
+- DOMAIN-SUFFIX,quickconnect.cn,DIRECT
+- DOMAIN-SUFFIX,quickconnect.to,DIRECT
+- DOMAIN-SUFFIX,synology.com,DIRECT
+- DOMAIN-SUFFIX,synology.me,DIRECT
+- PROCESS-NAME,SynologyDrive.exe,DIRECT
+- RULE-SET,ai,AI
+- RULE-SET,youtube,YouTube
+- RULE-SET,bing,Bing
+- RULE-SET,github,Github
+- RULE-SET,shopify,Shopify
+- RULE-SET,onedrive,Onedrive
+- RULE-SET,telegram,电报消息
+- RULE-SET,apple,苹果服务
+- RULE-SET,google,谷歌服务
+- RULE-SET,microsoft,微软服务
+- RULE-SET,netflix_site,Netflix
+- RULE-SET,tiktok,TikTok
+- RULE-SET,adobe,Adobe
+- RULE-SET,spotify,Spotify
+- RULE-SET,games,游戏服务
+- RULE-SET,speedtest,网速测试
+- RULE-SET,bilibili,Bilibili
+- RULE-SET,direct,全局直连
+- RULE-SET,telegramcidr,电报消息,no-resolve
+- RULE-SET,netflix_ip,Netflix,no-resolve
+- RULE-SET,proxy,节点选择
+- RULE-SET,gfw,节点选择
+- RULE-SET,tld-not-cn,节点选择
+- RULE-SET,ipdirect,全局直连
+- MATCH,漏网之鱼
+mixed-port: 7893
+allow-lan: false
+bind-address: '*'
+mode: rule
+log-level: info
+ipv6: false
+find-process-mode: 'off'
+proxy-providers:
+  Hitun:
+    type: http
+    url: https://clash0811-main.rss-node.com/sub?target=clash&interval=129600&filename=Hitun&url=https%3A%2F%2Frss-node.com%2Flink%2FKvXIZkAcalWvPF6R%3Fmu%3D1
+    path: ./providers/Hitun.yaml
+    interval: 259200
+    proxy: DIRECT
+    header:
+      User-Agent:
+      - clash.meta
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 360
+      timeout: 5000
+      lazy: true
+    override:
+      additional-prefix: '[Hitun] '
+    exclude-filter: (?i)(?:Game|官网|官方|公告|订阅|链接|网站|客服|剩余|到期|流量|重置|套餐时间|(^|[^a-z])(telegram|group|channel|notice|expire|expired|traffic|reset)([^a-z]|$)|^\s*(?:\[[^\]\r\n]+\]\s*)?[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*[|｜]\s*[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*$|\[premium\]\s*$|阿联酋|阿根廷|保加利亚|巴西|瑞士|智利|印度尼西亚|印度|爱尔兰|匈牙利|俄罗斯|瑞典|土耳其|荷兰|英国|法国|德国|(^|[^a-z])(arab|uae|argentina|austria|bulgaria|brazil|switzerland|chile|india|indonesia|ireland|hungary|russia|sweden|turkey|netherlands?|united[
+      _-]*kingdom|uk|france|germany)([^a-z]|$))
+  Renzhe:
+    type: http
+    url: https://profile.honeyvora.com/assets/app/profile/6b5748466436546139664e6345466c4b/manifest?channel=stable&v=v1
+    path: ./providers/Renzhe.yaml
+    interval: 259200
+    proxy: DIRECT
+    header:
+      User-Agent:
+      - clash.meta
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 360
+      timeout: 5000
+      lazy: true
+    override:
+      additional-prefix: '[Renzhe] '
+    exclude-filter: (?i)(?:Game|官网|官方|公告|订阅|链接|网站|客服|剩余|到期|流量|重置|套餐时间|(^|[^a-z])(telegram|group|channel|notice|expire|expired|traffic|reset)([^a-z]|$)|^\s*(?:\[[^\]\r\n]+\]\s*)?[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*[|｜]\s*[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*$|\[premium\]\s*$|阿联酋|阿根廷|保加利亚|巴西|瑞士|智利|印度尼西亚|印度|爱尔兰|匈牙利|俄罗斯|瑞典|土耳其|荷兰|英国|法国|德国|(^|[^a-z])(arab|uae|argentina|austria|bulgaria|brazil|switzerland|chile|india|indonesia|ireland|hungary|russia|sweden|turkey|netherlands?|united[
+      _-]*kingdom|uk|france|germany)([^a-z]|$))
+  Nexitally:
+    type: http
+    url: https://cdn.synergypeak.org/?L2Rvd25sb2FkQ29uZmlnL0NsYXNoLmFzcHg/dD1hbnl0bHNfY2xhc2gmZXE9d2luZG93cyZ1cms9NGJlMDU5YjItZWQ5Ni00MTg4LWIxNTctY2E5YzU4YzFkZGFkJm1tPTE2NTgxMyZrdG1tPVhyN2x4ZWVoUmZib244VVlOTSUyZjdQdyUzZCUzZCY3NmYxZmNmZTkyYTE=
+    path: ./providers/Nexitally.yaml
+    interval: 0
+    proxy: DIRECT
+    header:
+      User-Agent:
+      - clash-verge/v2.4.5
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 360
+      timeout: 5000
+      lazy: true
+    override:
+      additional-prefix: '[Nexitally] '
+    exclude-filter: (?i)(?:Game|官网|官方|公告|订阅|链接|网站|客服|剩余|到期|流量|重置|套餐时间|(^|[^a-z])(telegram|group|channel|notice|expire|expired|traffic|reset)([^a-z]|$)|^\s*(?:\[[^\]\r\n]+\]\s*)?[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*[|｜]\s*[0-9]+(?:\.[0-9]+)?\s*[KMGT](?:I?B)?\s*$|\[premium\]\s*$|阿联酋|阿根廷|保加利亚|巴西|瑞士|智利|印度尼西亚|印度|爱尔兰|匈牙利|俄罗斯|瑞典|土耳其|荷兰|英国|法国|德国|(^|[^a-z])(arab|uae|argentina|austria|bulgaria|brazil|switzerland|chile|india|indonesia|ireland|hungary|russia|sweden|turkey|netherlands?|united[
+      _-]*kingdom|uk|france|germany)([^a-z]|$))
+port: 7890
+socks-port: 7891
+redir-port: 7892
+tproxy-port: 7895
+tun:
+  enable: false
+hosts:
+  2e864e57-6ba8-4073-822c-9b4de704d43d.dmdzuspah1.sbs: 811f4d1d-e418-4c2c-a007-c01f194e4b19.dmdzuspah1.sbs
