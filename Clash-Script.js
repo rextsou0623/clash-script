@@ -207,7 +207,7 @@ const ruleProviders = {
     "format": "mrs",
     "interval": 86400,
     "behavior": "domain",
-    "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/games-cn.mrs",
+    "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/games.mrs",
     "path": "./ruleset/games.mrs"
   },
   "telegramcidr": {
