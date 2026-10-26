@@ -299,8 +299,8 @@ const proxyGroups = [
     "name": "Bing",
     "type": "select",
     "proxies": [
-      "节点选择",
       "全局直连",
+      "节点选择",
       "手动选择",
       "延迟选优"
     ],
@@ -338,6 +338,7 @@ const proxyGroups = [
     "name": "Shopify",
     "type": "select",
     "proxies": [
+      "🇺🇸 美国 📶",
       "节点选择",
       "手动选择",
       "全局直连",
@@ -424,6 +425,7 @@ const proxyGroups = [
     "name": "Netflix",
     "type": "select",
     "proxies": [
+      "🇸🇬 新加坡 📶",
       "节点选择",
       "手动选择",
       "延迟选优"
@@ -486,8 +488,8 @@ const proxyGroups = [
     "name": "游戏服务",
     "type": "select",
     "proxies": [
-      "全局直连",
       "节点选择",
+      "全局直连",
       "手动选择",
       "延迟选优"
     ],
