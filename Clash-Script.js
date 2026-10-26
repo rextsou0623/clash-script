@@ -74,6 +74,14 @@ const ruleProviders = {
     "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/private.mrs",
     "path": "./ruleset/private.mrs"
   },
+   "games-download": {
+    "type": "http",
+    "format": "mrs",
+    "interval": 86400,
+    "behavior": "domain",
+    "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/games-cn.mrs",
+    "path": "./ruleset/games-download.mrs"
+  },
   "google": {
     "type": "http",
     "format": "mrs",
@@ -461,6 +469,17 @@ const proxyGroups = [
     ],
     "icon": "https://www.adobe.com/favicon.ico"
   },
+    {
+    "hidden": false,
+    "disable-udp": false,
+    "name": "游戏下载",
+    "type": "select",
+    "proxies": [
+      "全局直连",
+      "节点选择",
+    ],
+    "icon": "https://www.clashverge.dev/assets/icons/steam.svg"
+  },
   {
     "hidden": false,
     "disable-udp": false,
@@ -713,6 +732,7 @@ function main(input) {
         "RULE-SET,tiktok,TikTok",
         "RULE-SET,adobe,Adobe",
         "RULE-SET,spotify,Spotify",
+        "RULE-SET,games-download,游戏下载",      
         "RULE-SET,games,游戏服务",
         "RULE-SET,speedtest,网速测试",
         "RULE-SET,bilibili,Bilibili",
