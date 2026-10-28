@@ -38,7 +38,8 @@ const customRules = [
   "DOMAIN-SUFFIX,quickconnect.to,DIRECT",
   "DOMAIN-SUFFIX,synology.com,DIRECT",
   "DOMAIN-SUFFIX,synology.me,DIRECT",
-  "PROCESS-NAME,SynologyDrive.exe,DIRECT"
+  "PROCESS-NAME,SynologyDrive.exe,DIRECT",
+  "DOMAIN-SUFFIX,ui.com,DIRECT"
 ];
 
 const ruleProviders = {
